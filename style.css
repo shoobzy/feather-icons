@@ -7,6 +7,10 @@ body {
     background: var(--bg-primary);
 }
 
+* {
+    transition: all .3s ease-in-out;
+}
+
 .mls {
     font-size: 1rem;
     margin-left: .5rem;
@@ -36,58 +40,71 @@ body {
 
 span[class^="icon-"],
 span[class*=" icon-"] {
-    color: var(--fg-primary);
+    color: var(--fg-secondary);
 }
 
-.checkbox {
-    opacity: 0;
-    position: absolute;
-}
-
-.checkbox-label {
-    background-color: #111;
-    width: 50px;
-    height: 26px;
-    border-radius: 50px;
-    position: relative;
-    padding: 5px;
-    cursor: pointer;
+.theme-toggle {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    justify-content: flex-end;
+    margin-bottom: 24px;
+    
+    &__input {
+        opacity: 0;
+        position: absolute;
+        
+        &:checked + label {
+            .icon-sun {
+                transform: translateY(36px);
+            }
+            
+            .icon-moon {
+                transform: translateY(0);
+            }
+        }
+    }
+    
+    &__label {
+        width: 36px;
+        height: 36px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        
+        .icon-moon,
+        .icon-sun {
+            position: absolute;
+            font-size: 24px;
+            transition: color .3s ease-out, transform .3s ease-out;
+        }
+        
+        .icon-moon {
+            transform: translateY(36px);
+        }
 
-.icon-moon {color: #f1c40f;}
-
-.icon-sun {color: #f39c12;}
-
-.checkbox-label .ball {
-    background-color: #fff;
-    width: 22px;
-    height: 22px;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    border-radius: 50%;
-    transition: transform 0.2s linear;
-}
-
-.checkbox:checked + .checkbox-label .ball {
-    transform: translateX(24px);
+        &:hover {
+            .icon-moon,
+            .icon-sun {
+                color: var(--fg-primary);
+            }
+        }    
+    }
 }
 
 :root {
     --bg-primary: hsla(0, 0%, 100%, 1);
     --bg-primary_alt: hsla(220, 20%, 97%, 1);
-    --fg-primary: hsla(212, 15%, 46%, 1);
+    --fg-primary: hsla(220, 41%, 10%, 1);
+    --fg-secondary: hsla(212, 15%, 46%, 1);
     --text-primary: hsla(220, 41%, 10%, 1);
 }
 
-@media screen and (prefers-color-scheme: dark) {
-    :root {
-        --bg-primary: hsla(220, 41%, 10%, 1);
-        --bg-primary_alt: hsla(214, 32%, 14%, 1);
-        --fg-primary: hsla(214, 16%, 74%, 1);
-        --text-primary: hsla(0, 0%, 100%, 1);
-    }
+.dark {
+    --bg-primary: hsla(220, 41%, 10%, 1);
+    --bg-primary_alt: hsla(214, 32%, 14%, 1);
+    --fg-primary: hsla(0, 0%, 100%, 1);
+    --fg-secondary: hsla(214, 16%, 74%, 1);
+    --text-primary: hsla(0, 0%, 100%, 1);
 }
