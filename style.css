@@ -1,9 +1,8 @@
 body {
     font-family: monospace, sans-serif;
-    font-size: 1rem;
-    margin: 2rem;
+    font-size: var(--rhythm-unit);
+    margin: var(--rhythm-unit);
     line-height: 1.5;
-    color: #333;
     background: var(--bg-primary);
 }
 
@@ -11,24 +10,32 @@ body {
     transition: all .3s ease-in-out;
 }
 
+.flex {
+    display: flex;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
 .mls {
-    font-size: 1rem;
+    font-size: var(--rhythm-unit);
     margin-left: .5rem;
 }
 
 .fs1 {
-    font-size: 1.25rem;
+    font-size: calc(var(--rhythm-unit) * 1.25);
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    grid-column-gap: .5rem;
-    grid-row-gap: .5rem;
+    grid-column-gap: calc(var(--rhythm-unit) / 2);
+    grid-row-gap: calc(var(--rhythm-unit) / 2);
     
     div {
         display: flex;
         align-items: center;
         background: var(--bg-primary_alt);
-        padding: .5rem 1rem;
+        padding: calc(var(--rhythm-unit) / 2) var(--rhythm-unit);
         border-radius: .25rem;
         column-gap: 8px;
         
@@ -46,65 +53,65 @@ span[class*=" icon-"] {
 .theme-toggle {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 24px;
+    margin-bottom: calc(var(--rhythm-unit) * 1.5);
+    background: none;
+    width: calc(var(--rhythm-unit) * 2.25);
+    height: calc(var(--rhythm-unit) * 2.25);
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: none;
     
-    &__input {
-        opacity: 0;
+    .icon-moon,
+    .icon-sun {
         position: absolute;
-        
-        &:checked + label {
-            .icon-sun {
-                transform: translateY(36px);
-            }
-            
-            .icon-moon {
-                transform: translateY(0);
-            }
-        }
+        font-size: calc(var(--rhythm-unit) * 1.5);
+        transition: color .3s ease-out, transform .3s ease-out;
     }
-    
-    &__label {
-        width: 36px;
-        height: 36px;
-        position: relative;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        
+
+    &:hover {
         .icon-moon,
         .icon-sun {
-            position: absolute;
-            font-size: 24px;
-            transition: color .3s ease-out, transform .3s ease-out;
+            color: var(--fg-primary);
         }
-        
-        .icon-moon {
-            transform: translateY(36px);
-        }
-
-        &:hover {
-            .icon-moon,
-            .icon-sun {
-                color: var(--fg-primary);
-            }
-        }    
     }
 }
 
 :root {
+    --rhythm-unit: 1rem;
+}
+
+[data-theme="light"] {
     --bg-primary: hsla(0, 0%, 100%, 1);
     --bg-primary_alt: hsla(220, 20%, 97%, 1);
     --fg-primary: hsla(220, 41%, 10%, 1);
     --fg-secondary: hsla(212, 15%, 46%, 1);
     --text-primary: hsla(220, 41%, 10%, 1);
+
+    .icon-moon {
+        transform: translateY(36px);
+    }
+
+    .icon-sun {
+        transform: translateY(0);
+    }
 }
 
-.dark {
+[data-theme="dark"] {
     --bg-primary: hsla(220, 41%, 10%, 1);
     --bg-primary_alt: hsla(214, 32%, 14%, 1);
     --fg-primary: hsla(0, 0%, 100%, 1);
     --fg-secondary: hsla(214, 16%, 74%, 1);
     --text-primary: hsla(0, 0%, 100%, 1);
+    
+    .icon-moon {
+        transform: translateY(0);
+    }
+
+    .icon-sun {
+        transform: translateY(36px);
+    }
 }
